@@ -5,6 +5,8 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const multer = require('multer')
 
+var upload = multer({ dest: 'uploads/' });
+
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -32,7 +34,7 @@ app.get('/', function (req, res) {
 // You can submit a form that includes a file upload.
 // The form file input field has the name attribute set to upfile.
 // When you submit a file, you receive the file name, type, and size in bytes within the JSON response.
-app.post('/api/fileanalyse', multer().single('upfile'), (req, res) => {
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
 
   // handle multer error
   if (req.fileValidationError) {
