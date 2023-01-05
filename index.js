@@ -43,6 +43,7 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
 
   if (req.file == undefined) {
     res.json({ error: 'No file uploaded' })
+    
   } else {
 
     res.json({
