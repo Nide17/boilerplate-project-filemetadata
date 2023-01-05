@@ -29,7 +29,27 @@ app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+// You can submit a form that includes a file upload.
+// The form file input field has the name attribute set to upfile.
+// When you submit a file, you receive the file name, type, and size in bytes within the JSON response.
+app.post('/api/fileanalyse', multer().single('upfile'), (req, res) => {
 
+  // handle multer error
+  if (req.fileValidationError) {
+    return res.send(req.fileValidationError)
+  }
+
+  if (req.file == undefined) {
+    res.json({ error: 'No file uploaded' })
+  } else {
+
+    res.json({
+      name: req.file.originalname,
+      type: req.file.mimetype,
+      size: req.file.size
+    })
+  }
+})
 
 
 const port = process.env.PORT || 3000;
